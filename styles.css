@@ -253,17 +253,17 @@ body {
     gap: 10px;
     width: 100%;
   }
-
-  textarea{
+  
+  textarea {
     width: 60%;
     height: 200px;
   }
-
-  /* Footer */
-
-  footer{
+  
+  /* FOOTER */
+  
+  footer {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: black;
@@ -271,19 +271,20 @@ body {
     color: white;
     padding: 40px 0;
   }
-
-  footer h3{
+  
+  footer h3 {
     margin: 0;
   }
-
-  footer span, footer p{
+  
+  footer span,
+  footer p {
     font-size: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: 60%;
   }
-
+  
   .post-content {
     text-align: justify;
     margin: 0 auto;
@@ -291,14 +292,14 @@ body {
     max-width: 800px;
     margin-bottom: 100px;
   }
-
+  
   .post-content .post-title,
   .post-content .post-author,
-  .post-content .post-timestamp{
+  .post-content .post-timestamp {
     text-align: center;
   }
-
+  
   .post-content .post-title,
-  .post-content .post-author{
+  .post-content .post-author {
     font-style: italic;
   }
