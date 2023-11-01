@@ -1,7 +1,5 @@
 //client 
 
-const { response } = require("express");
-
 //get stored data
 let storedToken = localStorage.getItem('jwtToken');
 let storedUsername = localStorage.getItem('username');
