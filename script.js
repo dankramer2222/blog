@@ -27,13 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
   loginForm.addEventListener('submit', (event) => loginUser(event, baseUrl));
 
   const registerForm = document.getElementById('register-form');
-  registerForm.addEventListener('submit', (event) => registerUser(event, baseUrl));
+  registerForm.addEventListener('submit', (event) =>
+    registerUser(event, baseUrl)
+  );
 });
 
 // Post details
 const postDetailContainer = document.getElementById('post-detail-container');
 
-// Add a listener for the detail page
+// Add a listener for detail page
 window.addEventListener('load', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get('post');
@@ -72,9 +74,11 @@ async function fetchPosts(baseUrl) {
           }
           <div id="admin-buttons">
             <button class="btn" style="${deleteButtonStyle}" onclick="deletePost('${
-          post._id
-        }', '${baseUrl}')">Delete</button>
-        <button class="btn" style="${updateButtonStyle}" onclick="showUpdateForm('${post._id}', '${post.title}', '${post.content}')">Update</button>
+              post._id
+            }', '${baseUrl}')">Delete</button>
+            <button class="btn" style="${updateButtonStyle}" onclick="showUpdateForm('${
+              post._id
+            }', '${post.title}', '${post.content}')">Update</button>
           </div>
           ${index === 0 ? '<hr>' : ''}
           ${index === 0 ? '<h2>All Articles</h2>' : ''}
@@ -84,9 +88,6 @@ async function fetchPosts(baseUrl) {
       .join('');
   }
 }
-
-// Остальной код, включая функции createPost, deletePost, showUpdateForm, и так далее...
-
 
 async function createPost(event, baseUrl) {
   event.preventDefault();
@@ -101,7 +102,7 @@ async function createPost(event, baseUrl) {
 
   // Ensure that inputs are not empty
   if (!title || !content || !imageUrl) {
-    alert('Please fill in all fields 1.');
+    alert('Please fill in all fields.');
     return;
   }
 
@@ -141,7 +142,7 @@ async function createPost(event, baseUrl) {
       alert('Create post successful!');
     }
   } catch (error) {
-    console.error('An errro occured during the fetch:', error);
+    console.error('An error occurred during the fetch:', error);
     alert('Create post failed.');
   }
   fetchPosts(baseUrl);
@@ -194,9 +195,9 @@ async function updatePost(event, postId) {
   const content = document.getElementById('update-content').value;
   const baseUrl = window.location.origin;
 
-  // ensure that inputs are not empty
+  // Ensure that inputs are not empty
   if (!title || !content) {
-    alert('Please fill in all fields 2.');
+    alert('Please fill in all fields.');
     return;
   }
 
@@ -206,15 +207,14 @@ async function updatePost(event, postId) {
   };
 
   try {
-    const responce = await fetch(`${baseUrl}/posts/${postId}`,{
-        method: 'PUT',
-        headers: {
-            'Content-Type':'application/json',
-            Authorization:`Bearer ${storedToken}`,
-        },  
-        body: JSON.stringify(updatePost),
+    const response = await fetch(`${baseUrl}/posts/${postId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${storedToken}`,
+      },
+      body: JSON.stringify(updatedPost),
     });
-    
 
     if (response.ok) {
       alert('Update post successful!');
@@ -223,7 +223,7 @@ async function updatePost(event, postId) {
       alert('Update post failed.');
     }
   } catch (error) {
-    console.error('An error occured during the fetch', error);
+    console.error('An error occurred during the fetch', error);
     alert('Update post failed.');
   }
 }
@@ -239,9 +239,9 @@ async function registerUser(event, baseUrl) {
   const password = passwordInput.value;
   const role = roleInput.value;
 
-  // ensure that inputs are not empty
+  // Ensure that inputs are not empty
   if (!username || !password || !role) {
-    alert('Please fill in all fields 3.');
+    alert('Please fill in all fields.');
     return;
   }
 
@@ -251,7 +251,7 @@ async function registerUser(event, baseUrl) {
     role,
   };
 
-  const res = await fetch(`${baseUrl}/register`, {
+  const response = await fetch(`${baseUrl}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -259,10 +259,10 @@ async function registerUser(event, baseUrl) {
     body: JSON.stringify(newUser),
   });
 
-  const data = await res.json();
+  const data = await response.json();
 
   if (data.success) {
-    alert('Registered successful!');
+    alert('Registered successfully!');
     // Clear input fields
     usernameInput.value = '';
     passwordInput.value = '';
@@ -272,7 +272,7 @@ async function registerUser(event, baseUrl) {
   }
 }
 
-// Loging user
+// Login user
 async function loginUser(event, baseUrl) {
   event.preventDefault();
   const usernameInput = document.getElementById('login-username');
@@ -281,7 +281,7 @@ async function loginUser(event, baseUrl) {
   const password = passwordInput.value;
 
   if (!username || !password) {
-    alert('Please fill in all fields 4.');
+    alert('Please fill in all fields.');
     return;
   }
 
@@ -290,7 +290,7 @@ async function loginUser(event, baseUrl) {
     password,
   };
 
-  const res = await fetch(`${baseUrl}/login`, {
+  const response = await fetch(`${baseUrl}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -298,14 +298,14 @@ async function loginUser(event, baseUrl) {
     body: JSON.stringify(user),
   });
 
-  const data = await res.json();
+  const data = await response.json();
 
   if (data.success) {
     localStorage.setItem('jwtToken', data.token);
     localStorage.setItem('userRole', data.role);
     localStorage.setItem('username', username);
 
-    // Close the hamburge menu if open
+    // Close the hamburger menu if open
     linksContainer.classList.toggle('active');
     hamburger.classList.toggle('active');
 
