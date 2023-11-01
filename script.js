@@ -78,9 +78,7 @@ async function fetchPosts(baseUrl) {
             <button class="btn" style="${deleteButtonStyle}" onclick="deletePost('${
           post._id
         }', '${baseUrl}')">Delete</button>
-            <button class="btn" style="${updateButtonStyle}" onclick="showUpdateForm('${
-          post._id
-        }', '${post.title}', '${post.content}')">Update</button>
+        <button class="btn" style="${updateeButtonStyle}" onclick="showUpdateForm('${post._id}', '${post.title}', '${post.content}')">Update</button>
           </div>
           ${index === 0 ? '<hr>' : ''}
           ${index === 0 ? '<h2>All Articles</h2>' : ''}
@@ -209,14 +207,14 @@ async function updatePost(event, postId) {
   };
 
   try {
-    const response = await fetch(`${baseUrl}/posts/${postId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${storedToken}`,
-      },
-      body: JSON.stringify(updatedPost),
-    });
+    const responce = await fetch(`${baseUrl}/posts/${postId}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type':'application/json',
+            Authorization:`Bearer ${storedToken}`,
+        },  
+        body: JSON.stringify(updatePost),
+    });    
 
     if (response.ok) {
       alert('Update post successful!');
