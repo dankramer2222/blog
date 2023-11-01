@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     loginForm.addEventListener('submit',(event)=> loginUser(event,baseUrl));
 
     const registerForm = document.getElementById('register-form');
-    registerFormForm.addEventListener('submit',(event) => registerUser(event,baseUrl));
+    registerForm.addEventListener('submit',(event) => registerUser(event,baseUrl));
 });
 
 //Post details
