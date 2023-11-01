@@ -1,5 +1,3 @@
-// Client
-
 // Get stored data
 let storedToken = localStorage.getItem('jwtToken');
 let storedUsername = localStorage.getItem('username');
@@ -29,15 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
   loginForm.addEventListener('submit', (event) => loginUser(event, baseUrl));
 
   const registerForm = document.getElementById('register-form');
-  registerForm.addEventListener('submit', (event) =>
-    registerUser(event, baseUrl)
-  );
+  registerForm.addEventListener('submit', (event) => registerUser(event, baseUrl));
 });
 
 // Post details
 const postDetailContainer = document.getElementById('post-detail-container');
 
-// Add a listener for detail page
+// Add a listener for the detail page
 window.addEventListener('load', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get('post');
@@ -78,7 +74,7 @@ async function fetchPosts(baseUrl) {
             <button class="btn" style="${deleteButtonStyle}" onclick="deletePost('${
           post._id
         }', '${baseUrl}')">Delete</button>
-        <button class="btn" style="${updateeButtonStyle}" onclick="showUpdateForm('${post._id}', '${post.title}', '${post.content}')">Update</button>
+        <button class="btn" style="${updateButtonStyle}" onclick="showUpdateForm('${post._id}', '${post.title}', '${post.content}')">Update</button>
           </div>
           ${index === 0 ? '<hr>' : ''}
           ${index === 0 ? '<h2>All Articles</h2>' : ''}
@@ -88,6 +84,9 @@ async function fetchPosts(baseUrl) {
       .join('');
   }
 }
+
+// Остальной код, включая функции createPost, deletePost, showUpdateForm, и так далее...
+
 
 async function createPost(event, baseUrl) {
   event.preventDefault();
@@ -214,7 +213,8 @@ async function updatePost(event, postId) {
             Authorization:`Bearer ${storedToken}`,
         },  
         body: JSON.stringify(updatePost),
-    });    
+    });
+    
 
     if (response.ok) {
       alert('Update post successful!');
