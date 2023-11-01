@@ -11,7 +11,7 @@ usernameElement.textContent = storedUsername;
 //Load page and event listeners
 document.addEventListener('DOMContentLoaded',()=>{
     const baseUrl = window.location.origin;
-    fetchposts(baseUrl);
+    fetchPosts(baseUrl);
 
     if (storedToken){
         const storedRole = localStorage.getItem('userRole');
